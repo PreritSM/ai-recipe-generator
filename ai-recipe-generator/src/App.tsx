@@ -23,7 +23,7 @@ amplifyClient.queries.askBedrock({
 ingredients: [formData.get("ingredients")?.toString() || ""],
 });
 if (!errors) {
-setResult(data?.body || "No data returned");
+setResult(data?.body || data?.error || "No data returned");
 } else {
 console.log(errors);
 setResult("Error: " + JSON.stringify(errors));
