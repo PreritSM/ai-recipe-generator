@@ -26,6 +26,7 @@ if (!errors) {
 setResult(data?.body || "No data returned");
 } else {
 console.log(errors);
+setResult("Error: " + JSON.stringify(errors));
 }
 } catch (e) {
 alert(`An error occurred: ${e}`);

@@ -32,8 +32,32 @@ export function request(ctx) {
   }
   
   export function response(ctx) {
+    // Check for errors in the HTTP response
+    if (ctx.error) {
+      return {
+        body: null,
+        error: ctx.error.message || JSON.stringify(ctx.error),
+      };
+    }
+
+    if (ctx.result.statusCode !== 200) {
+      return {
+        body: null,
+        error: ctx.result.body || `HTTP error: ${ctx.result.statusCode}`,
+      };
+    }
+
     // Parse the response body
     const parsedBody = JSON.parse(ctx.result.body);
+
+    // Check if content exists in the response
+    if (!parsedBody.content || !parsedBody.content[0]) {
+      return {
+        body: null,
+        error: JSON.stringify(parsedBody),
+      };
+    }
+
     // Extract the text content from the response
     const res = {
       body: parsedBody.content[0].text,
