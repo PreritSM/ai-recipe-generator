@@ -25,6 +25,15 @@ bedrockDataSource.grantPrincipal.addToPrincipalPolicy(
       "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0",
     ],
     actions: ["bedrock:InvokeModel"],
-    
+  })
+);
+
+bedrockDataSource.grantPrincipal.addToPrincipalPolicy(
+  new PolicyStatement({
+    resources: ["*"],
+    actions: [
+      "aws-marketplace:ViewSubscriptions",
+      "aws-marketplace:Subscribe",
+    ],
   })
 );
